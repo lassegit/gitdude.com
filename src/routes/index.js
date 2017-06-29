@@ -13,11 +13,9 @@ export default {
     require('./about').default,
     require('./privacy').default,
     require('./profile').default,
-
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     require('./notFound').default,
   ],
-
   async action({ next, isAuthenticated }) {
     // Execute each child route until one of them return the result
     const route = await next();
@@ -32,6 +30,5 @@ export default {
     }
 
     return route;
-  },
-
+  }
 };
