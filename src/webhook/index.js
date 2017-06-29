@@ -19,7 +19,7 @@ const webhook = (app) => {
     let esLintConfig;
 
     if (!commits) {
-      return res.send('No commited files.'); // Initial request
+      return res.send('No commited files.');
     }
 
     try {
