@@ -10,7 +10,7 @@ Here are a list of available ESLint configs and plugins:
 - eslint-config-canonical@5.1.0 [link](https://github.com/gajus/eslint-config-canonical)
 - eslint-config-es@0.8.11 [link](https://github.com/thenativeweb/eslint-config-es)
 - eslint-config-fbjs@1.1.1 [link](https://www.npmjs.com/package/eslint-config-fbjs)
-- eslint-plugin-react@7.1.0 [link](https://github.com/yannickcr/eslint-plugin-react)
+- eslint-plugin-react@7.0.1 [link](https://github.com/yannickcr/eslint-plugin-react)
 - eslint-config-google@0.8.0 [link](https://github.com/google/eslint-config-google)
 - eslint-plugin-shopify@16.0.1 [link](https://github.com/Shopify/eslint-plugin-shopify)
 - eslint-config-xo@0.18.1 [link](https://github.com/sindresorhus/eslint-config-xo)
