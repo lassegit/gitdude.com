@@ -8,7 +8,7 @@ const gitSync = async (req, res, next) => {
     const pull = await exec(`git -C ${repoPath} pull`);
     return next();
   } catch (e) {
-    throw new Error('Failed to pull git repository.');
+    return res.status(500).send('Failed to pull git repository.');
   }
 };
 

@@ -11,7 +11,7 @@ const gitRepo = async (req, res, next) => {
       const clone = (__DEV__) ? await exec(`git clone ${repoUrl} ${repoPath}`) : await exec(`git clone --depth 1 ${repoUrl} ${repoPath}`);
       return next();
     } catch (e) {
-      throw new Error('Failed to clone repository.');
+      return res.status(500).send('Failed to clone repository.');
     }
   }
 

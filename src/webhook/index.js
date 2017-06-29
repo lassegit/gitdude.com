@@ -9,7 +9,7 @@ const linter = require('eslint').linter;
 const CLIEngine = require('eslint').CLIEngine;
 
 const webhook = (app) => {
-  app.post('/webhook', gitAuth, gitRepo, gitSync, async (req, res) => {
+  app.post('/webhook', gitAuth, gitRepo, gitSync, async (req, res, next) => {
     const repoPath = path.resolve(__dirname, `../files/repos/${req.repo.id}/`);
     const configFile = path.resolve(__dirname, `../files/configs/eslintrc-${req.repo.id}.json`);
     const commits = req.body.commits;
@@ -35,8 +35,10 @@ const webhook = (app) => {
       });
       esLintConfig = cli.getConfigForFile(configFile);
     } catch (e) {
-      return res.status(500).send('Failed to load configuation file. Please check your configuration file and make sure it doesn\'t use non-existing dependencies or contains spellings errors.');
+      return res.status(500).send(e);
     }
+
+    console.log('AFTER TRY CATCH!!!');
 
     // Iterate over the commits
     for (var i = 0; i < commits.length; i++) {
