@@ -1,0 +1,130 @@
+@import '../variables.css';
+
+:root {
+  --brand-color: #61dafb;
+}
+
+.root {
+  background: #373277;
+  color: #fff;
+  padding:0 20px;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 20px 0;
+  max-width: var(--max-content-width);
+  text-align:center;
+  @media screen and (width > 768px) {
+    text-align:left;
+  }
+}
+
+.containerSmall {
+  padding:10px 0;
+}
+
+.brand {
+  text-decoration: none;
+}
+
+.brandLogoWrap {
+  @media screen and (width > 768px) {
+    float: left;
+  }
+}
+
+.brandTxtWrap {
+  @media screen and (width > 768px) {
+    display: inline-block;
+    margin-left:10px;
+  }
+}
+
+.brandTxt {
+  color: color(var(--brand-color) lightness(+10%));
+  font-size: 1.75em; /* ~28px */
+}
+
+.brandTxtSmall {
+  font-size:20px;
+}
+
+.brandSubTxt {
+  display:block;
+  font-size:12px;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.brandSubTxtSmall {}
+
+.navigation {
+  text-align:center;
+  margin:20px 0 0 0;
+  @media screen and (width > 768px) {
+    float:right;
+    margin:0;
+  }
+}
+
+.navigationSmall {
+  line-height:40px;
+}
+
+.banner {
+  text-align: center;
+}
+
+.bannerTitle {
+  margin: 0;
+  padding: 10px;
+  font-weight: normal;
+  font-size: 3em;
+  line-height: 1em;
+
+  @media screen and (width > 768px) {
+    font-size: 4em;
+  }
+}
+
+.bannerDesc {
+  padding: 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.25em;
+  margin: 0;
+}
+
+.link {
+  display: inline-block;
+  padding: 3px 8px;
+  text-decoration: none;
+  font-size: 1.125em; /* ~18px */
+}
+
+.link,
+.link:active,
+.link:visited {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.link:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.highlight {
+  margin-right: 8px;
+  margin-left: 8px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.15);
+  color: #fff;
+}
+
+.highlight:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.spacer {
+  color: rgba(255, 255, 255, 0.3);
+}

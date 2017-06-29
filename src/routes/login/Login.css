@@ -1,0 +1,20 @@
+@import '../../components/variables.css';
+
+.root {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 0 40px;
+  max-width: 380px;
+}
+
+.lead {
+  font-size: 1.25em;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}

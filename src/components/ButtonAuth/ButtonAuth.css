@@ -1,0 +1,42 @@
+@import '../variables.css';
+
+.button {
+  display: block;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 10px 16px;
+  width: 100%;
+  outline: 0;
+  border: 1px solid #373277;
+  border-radius: 0;
+  background: #373277;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 1.3333333;
+  cursor: pointer;
+
+  svg {
+    margin-right:10px;
+  }
+}
+
+.button:hover {
+  background: rgba(54, 50, 119, 0.8);
+}
+
+.button:focus {
+  border-color: #444;
+  box-shadow: 0 0 8px #444;
+}
+
+.button {
+  border-color: rgba(0,0,0,0.2);
+  background: #444;
+  composes: button;
+}
+
+.button:hover {
+  background: #2b2b2b;
+}

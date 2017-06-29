@@ -1,0 +1,6 @@
+{
+  "name": "ButtonAuth",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ButtonAuth.js"
+}

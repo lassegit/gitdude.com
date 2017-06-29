@@ -1,0 +1,24 @@
+version: '2'
+services:
+  db:
+    container_name: gitdudemysql
+    image: mysql:latest
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: gitdudedb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+  web:
+    container_name: gitdude
+    build: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - ../../../build:/usr/src/app
+      - ../../../repos:/usr/src/app
+    links:
+      - db
+    environment:
+      NODE_ENV: production
