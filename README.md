@@ -27,12 +27,11 @@ Here are a list of available ESLint configs and plugins:
 - eslint-plugin-lodash@2.4.3 [link](https://github.com/wix/eslint-plugin-lodash)
 - eslint-plugin-angular@3.0. [link]() [info](https://github.com/johnpapa/angular-styleguide)
 
-
+Inspiration from [A list of awesome ESLint plugins, configs, etc.](https://github.com/dustinspecker/awesome-eslint).
 
 ## Pre-configuations
-- React
-- Standard
-- Prettier standard
+
+To be done.
 
 ---
 Build using the [React Starter Kit](https://github.com/kriasoft/react-starter-kit).
