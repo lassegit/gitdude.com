@@ -9,12 +9,12 @@ const linter = require('eslint').linter;
 const CLIEngine = require('eslint').CLIEngine;
 
 const webhook = (app) => {
-  app.post('/webhook', gitAuth, gitRepo, gitSync, async (req, res, next) => {
+  app.post('/webhook', gitAuth, gitRepo, gitSync, async (req, res) => {
     const repoPath = path.resolve(__dirname, `../files/repos/${req.repo.id}/`);
     const configFile = path.resolve(__dirname, `../files/configs/eslintrc-${req.repo.id}.json`);
     const commits = req.body.commits;
+    const webhookRes = [];
     let webhookResErr = false;
-    let webhookRes = [];
     let cli;
     let esLintConfig;
 
