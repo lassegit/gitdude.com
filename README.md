@@ -34,5 +34,13 @@ Inspiration from [A list of awesome ESLint plugins, configs, etc.](https://githu
 
 To be done.
 
+
+## Precautions
+
+- If you call (e.g. extends or plugins) a non-installed package the linting will fail
+
+
+
+
 ---
 Build using the [React Starter Kit](https://github.com/kriasoft/react-starter-kit).

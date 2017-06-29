@@ -15,7 +15,8 @@ const webhook = (app) => {
     const commits = req.body.commits;
     let webhookResErr = false;
     let webhookRes = [];
-    let cli, esLintConfig;
+    let cli;
+    let esLintConfig;
 
     if (!commits) {
       return res.send('No commited files.'); // Initial request
@@ -29,8 +30,8 @@ const webhook = (app) => {
         useEslintrc: false,
         rules: {
           'import/no-unresolved': 0,
-          'import/extensions': 0
-        }
+          'import/extensions': 0,
+        },
       });
       esLintConfig = cli.getConfigForFile(configFile);
     } catch (e) {
@@ -41,7 +42,7 @@ const webhook = (app) => {
     for (var i = 0; i < commits.length; i++) {
       const commitId = commits[i].id;
       const files = allowedFiles(commits[i]);
-      let lintedFiles = [];
+      const lintedFiles = [];
 
       if (files.length === 0) {
         continue; // No files to lint
@@ -54,13 +55,13 @@ const webhook = (app) => {
         const snippet = await exec(`git -C ${repoPath} show ${commitId}:${files[x]}`);
         const lint = linter.verify(snippet, esLintConfig);
 
-        lintedFiles.push({ 'name': files[x], 'lint': lint });
+        lintedFiles.push({ name: files[x], lint: lint });
       }
 
       // Remove for testing...
       const comment = commentMarkdown(lintedFiles, req.user, req.repo, commitId);
       const postData = await postComment(req.user, req.repo, commitId, comment);
-      const commitData = await saveCommit(commits[i], req.user, req.repo, postData, req.body, lintedFiles);
+      await saveCommit(commits[i], req.user, req.repo, postData, req.body, lintedFiles);
 
       // // Add info to res
       if (postData.error) {
@@ -75,6 +76,6 @@ const webhook = (app) => {
 
     return res.json(webhookRes);
   });
-}
+};
 
 export default webhook;
