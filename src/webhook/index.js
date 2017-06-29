@@ -15,22 +15,27 @@ const webhook = (app) => {
     const commits = req.body.commits;
     let webhookResErr = false;
     let webhookRes = [];
+    let cli, esLintConfig;
 
     if (!commits) {
       return res.send('No commited files.'); // Initial request
     }
 
-    let cli = new CLIEngine({
-      fix: false,
-      cache: false,
-      configFile: configFile,
-      useEslintrc: false,
-      rules: {
-        'import/no-unresolved': 0,
-        'import/extensions': 0
-      }
-    });
-    let config = cli.getConfigForFile(configFile);
+    try {
+      cli = new CLIEngine({
+        fix: false,
+        cache: false,
+        configFile: configFile,
+        useEslintrc: false,
+        rules: {
+          'import/no-unresolved': 0,
+          'import/extensions': 0
+        }
+      });
+      esLintConfig = cli.getConfigForFile(configFile);
+    } catch (e) {
+      return res.status(500).send('Failed to load configuation file. Please check your configuration file and make sure it doesn\'t use non-existing dependencies or contains spellings errors.');
+    }
 
     // Iterate over the commits
     for (var i = 0; i < commits.length; i++) {
@@ -47,7 +52,7 @@ const webhook = (app) => {
       // Iterate over the commited files and lint them
       for (var x = 0; x < files.length; x++) {
         const snippet = await exec(`git -C ${repoPath} show ${commitId}:${files[x]}`);
-        const lint = linter.verify(snippet, config);
+        const lint = linter.verify(snippet, esLintConfig);
 
         lintedFiles.push({ 'name': files[x], 'lint': lint });
       }
