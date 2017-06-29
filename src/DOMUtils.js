@@ -12,7 +12,7 @@ export function updateTag(tagName, keyName, keyValue, attrName, attrValue) {
     nextNode.setAttribute(attrName, attrValue);
     document.head.appendChild(nextNode);
   }
-}
+};
 
 export function updateMeta(name, content) {
   updateTag('meta', 'name', name, 'content', content);
