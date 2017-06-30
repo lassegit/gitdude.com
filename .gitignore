@@ -10,7 +10,6 @@ yarn-error.log
 coverage
 .nyc_output
 .DS_Store
-files
 ecosystem.json
 notes.txt
 deploy.sh
