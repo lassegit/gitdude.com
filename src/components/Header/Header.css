@@ -12,7 +12,7 @@
 
 .container {
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 15px 0;
   max-width: var(--max-content-width);
   text-align:center;
   @media screen and (width > 768px) {
@@ -31,6 +31,7 @@
 .brandLogoWrap {
   @media screen and (width > 768px) {
     float: left;
+    margin-top:4px;
   }
 }
 
@@ -43,18 +44,25 @@
 
 .brandTxt {
   color: color(var(--brand-color) lightness(+10%));
-  font-size: 1.75em; /* ~28px */
+  font-family: monospace;
+  font-size: 1.75em;
+}
+
+.beta {
+  font-size:13px;
+  color:#ddd;
+  margin-left:3px;
 }
 
 .brandTxtSmall {
-  font-size:20px;
+  font-size:18px;
 }
 
 .brandSubTxt {
   display:block;
   font-size:12px;
   padding: 0;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.7);
   margin: 0;
 }
 
@@ -75,6 +83,7 @@
 
 .banner {
   text-align: center;
+  padding:20px 0;
 }
 
 .bannerTitle {
@@ -98,9 +107,9 @@
 
 .link {
   display: inline-block;
-  padding: 3px 8px;
+  padding: 3px 10px;
   text-decoration: none;
-  font-size: 1.125em; /* ~18px */
+  font-size: 1em;
 }
 
 .link,
