@@ -90,7 +90,7 @@ class Editor extends React.Component {
           />
           <button onClick={this.onSave.bind(this)} disabled={repo.loadingConfig}>Save config</button>
 
-          <select>
+          <select disabled>
             <option>Load config</option>
           </select>
 
