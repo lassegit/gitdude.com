@@ -52,24 +52,27 @@ const webhook = (app) => {
 
       // Iterate over the commited files and lint them
       for (var x = 0; x < files.length; x++) {
-        const snippet = await exec(`git -C ${repoPath} show ${commitId}:${files[x]}`);
-        const lint = linter.verify(snippet, esLintConfig);
+        try {
+          const snippet = await exec(`git -C ${repoPath} show ${commitId}:${files[x]}`);
+          const lint = linter.verify(snippet, esLintConfig);
 
-        lintedFiles.push({ name: files[x], lint: lint });
+          lintedFiles.push({ name: files[x], lint: lint });
+        } catch (e) {
+          lintedFiles.push({ name: files[x], lint: `File not found in ${commitId}` });
+        }
       }
 
-      // Remove for testing...
-      // const comment = commentMarkdown(lintedFiles, req.user, req.repo, commitId);
-      // const postData = await postComment(req.user, req.repo, commitId, comment);
-      // await saveCommit(commits[i], req.user, req.repo, postData, req.body, lintedFiles);
+      const comment = commentMarkdown(lintedFiles, req.user, req.repo, commitId);
+      const postData = await postComment(req.user, req.repo, commitId, comment);
+      await saveCommit(commits[i], req.user, req.repo, postData, req.body, lintedFiles);
 
-      // // // Add info to res
-      // if (postData.error) {
-      //   webhookResErr = true;
-      //   webhookRes.push(postData);
-      // } else {
-      //   webhookRes.push({ message: 'success', commitId: commitId });
-      // }
+      // // Add info to res
+      if (postData.error) {
+        webhookResErr = true;
+        webhookRes.push(postData);
+      } else {
+        webhookRes.push({ message: 'success', commitId: commitId });
+      }
     }
 
     if (webhookResErr) return res.status(500).json(webhookRes);
