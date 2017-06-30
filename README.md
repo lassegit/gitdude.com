@@ -2,11 +2,13 @@
 
 Gitdude.com adds an unobtrusive comment on your commits with ESLint code improvement tips. It is easy to setup and helps improve your code. An example of a comment:
 
-![Example of gitdude.com](https://raw.githubusercontent.com/lassegit/gitdude.com/master/example.jpg)
+![Example of gitdude.com](https://raw.githubusercontent.com/lassegit/gitdude.com/master/public/example.png)
+
 
 ## Demo
 
 Check out the [commits in this repository](https://github.com/lassegit/gitdude.com/commits/master) to see gitdude.com in action.
+
 
 ## Available ESLint configs and plugins
 
