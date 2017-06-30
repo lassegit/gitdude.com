@@ -5,7 +5,7 @@ import { Repository } from './data/models';
 const repoConfig = (app) => {
   app.post('/api/configs/eslintrc/:id/:action', async (req, res, next) => {
     const id = req.params.id;
-    const filePath = path.resolve(__dirname, `../files/configs/eslintrc-${id}.json`);
+    const filePath = path.resolve(__dirname, `../configs/eslintrc-${id}.json`);
 
     if (!req.isAuthenticated()) {
       return res.status(403).send('Permission denied.');
