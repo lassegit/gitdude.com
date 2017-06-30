@@ -1,5 +1,12 @@
-Visit the web site at [Gitdude.com](https://gitdude.com).
+## Description
 
+Gitdude.com adds an unobtrusive comment on your commits with ESLint code improvement tips. It is easy to setup and helps improve your code. An example of a comment:
+
+![Example of gitdude.com](https://raw.githubusercontent.com/lassegit/gitdude.com/master/example.jpg)
+
+## Demo
+
+Check out the [commits in this repository](https://github.com/lassegit/gitdude.com/commits/master) to see gitdude.com in action.
 
 ## Available ESLint configs and plugins
 
@@ -40,6 +47,7 @@ To be done.
 - If you call (e.g. extends or plugins) a non-installed package the linting will fail
 
 
+Web site: [Gitdude.com](https://gitdude.com).
 
 
 ---
