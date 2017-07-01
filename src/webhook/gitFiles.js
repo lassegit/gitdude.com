@@ -10,10 +10,13 @@ const gitFiles = (req, res, next) => {
 
   // Check if files exists
   for (var i = 0; i < commits.length; i++) {
-    const commitFiles = allowedFiles(commits[i]);
+    // Avoid re-linting files when merging branches
+    if (commits[i].distinct) {
+      const commitFiles = allowedFiles(commits[i]);
 
-    if (commitFiles.length > 0) {
-      files.push(commitFiles);
+      if (commitFiles.length > 0) {
+        files.push(commitFiles);
+      }
     }
   }
 

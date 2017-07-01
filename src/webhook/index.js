@@ -45,6 +45,8 @@ const webhook = (app) => {
         continue; // No files to lint
       } else if (files.length > 20) {
         continue; // Don't lint too many files
+      } else if (!commits[i].distinct) {
+        continue; // Don't re-lint files
       }
 
       // Iterate over the commited files and lint them
