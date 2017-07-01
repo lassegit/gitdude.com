@@ -8,9 +8,9 @@ const gitSync = async (req, res, next) => {
 
   try {
     if (__DEV__) {
-      await exec(`git -C ${repoPath} fetch --force --no-recurse-submodules ${repoUrl} ${ref}:${ref}`);
+      await exec(`git -C ${repoPath} fetch --force --update-head-ok --no-recurse-submodules ${repoUrl} ${ref}:${ref}`);
     } else {
-      await exec(`git -C ${repoPath} fetch --force --depth 1 --no-recurse-submodules ${repoUrl} ${ref}:${ref}`);
+      await exec(`git -C ${repoPath} fetch --force --update-head-ok --depth 1 --no-recurse-submodules ${repoUrl} ${ref}:${ref}`);
     }
 
     return next();
