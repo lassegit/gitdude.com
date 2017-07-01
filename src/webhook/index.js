@@ -66,7 +66,7 @@ const webhook = (app) => {
       const postData = await postComment(req.user, req.repo, commitId, comment);
       await saveCommit(commits[i], req.user, req.repo, postData, req.body, lintedFiles);
 
-      // // Add info to res
+      // Add info to res "
       if (postData.error) {
         webhookResErr = true;
         webhookRes.push(postData);

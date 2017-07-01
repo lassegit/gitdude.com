@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import getRuleURI from 'eslint-rule-documentation';
 import { Commit } from '../data/models';
 
 // Remove unallowed file extentions
@@ -39,16 +40,20 @@ const commentMarkdown = (lintedFiles, user, repo, commitId) => {
         const item = file.lint[x];
         let message = item.message.replace(/\n|\r/g, ''); // Some strings contain line breaks
 
-        markdown += `<code>${message}</code>`;
+        markdown += `<code title="${item.source}">${message}</code>`;
 
         markdown += `<code>[L${item.line}:${item.column}](${repoUrl}/blob/${commitId}/${fileName}#L${item.line} "Go to line ${item.line} and column ${item.column}")</code>`;
 
         if (item.ruleId) {
-          markdown += `[…](http://eslint.org/docs/rules/${item.ruleId} "More on: ${item.ruleId} rule")`;
+          const ruleUrl = getRuleURI(item.ruleId);
+
+          if (ruleUrl.found) {
+            markdown += `[…](${ruleUrl.url} "Show documentation for ${item.ruleId} rule")`;
+          }
         }
 
         if (item.fatal) {
-          markdown += ` :x: **fatal**`;
+          markdown += ` :heavy_multiplication_x: **fatal**`;
         }
 
         markdown += `\n`;
