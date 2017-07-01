@@ -40,7 +40,7 @@ const commentMarkdown = (lintedFiles, user, repo, commitId) => {
         const item = file.lint[x];
         let message = item.message.replace(/\n|\r/g, ''); // Some strings contain line breaks
 
-        markdown += `<code title="${item.source}">${message}</code>`;
+        markdown += `<code>${message}</code>`;
 
         markdown += `<code>[L${item.line}:${item.column}](${repoUrl}/blob/${commitId}/${fileName}#L${item.line} "Go to line ${item.line} and column ${item.column}")</code>`;
 

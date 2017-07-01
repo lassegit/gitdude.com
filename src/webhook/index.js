@@ -3,13 +3,14 @@ import exec from 'async-exec';
 import gitAuth from './gitAuth';
 import gitRepo from './gitRepository';
 import gitSync from './gitSync';
+import gitFiles from './gitFiles';
 import { allowedFiles, postComment, commentMarkdown, saveCommit } from './webhookUtils';
 
 const linter = require('eslint').linter;
 const CLIEngine = require('eslint').CLIEngine;
 
 const webhook = (app) => {
-  app.post('/webhook', gitAuth, gitRepo, gitSync, async (req, res, next) => {
+  app.post('/webhook', gitAuth, gitFiles, gitRepo, gitSync, async (req, res, next) => {
     const repoPath = path.resolve(__dirname, `../repos/${req.repo.id}/`);
     const configFile = path.resolve(__dirname, `../configs/eslintrc-${req.repo.id}.json`);
     const commits = req.body.commits;
@@ -17,10 +18,6 @@ const webhook = (app) => {
     let webhookResErr = false;
     let cli;
     let esLintConfig;
-
-    if (!commits) {
-      return res.send('No commited files.');
-    }
 
     try {
       cli = new CLIEngine({
@@ -66,7 +63,7 @@ const webhook = (app) => {
       const postData = await postComment(req.user, req.repo, commitId, comment);
       await saveCommit(commits[i], req.user, req.repo, postData, req.body, lintedFiles);
 
-      // Add info to res "
+      // Add info to res
       if (postData.error) {
         webhookResErr = true;
         webhookRes.push(postData);
