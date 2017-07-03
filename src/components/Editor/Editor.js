@@ -53,6 +53,10 @@ class Editor extends React.Component {
   onSave() {
     let { repo } = this.state;
 
+    if (!repo.config) {
+      repo.config = '{}'; // An empty config
+    }
+
     try {
       JSON.parse(repo.config);
     } catch (e) {
