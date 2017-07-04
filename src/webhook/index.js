@@ -83,7 +83,6 @@ const webhook = (app) => {
       }
     }
 
-
     if (webhookResErr) {
       return res.status(500).json(webhookRes);
     }
