@@ -4,7 +4,13 @@ const gitFiles = (req, res, next) => {
   const commits = req.body.commits;
   const files = [];
 
-  if (!commits) {
+  // Initial push
+  if (req.headers['x-github-event'] === 'ping') {
+    return res.send('Welcome to gitdude.com');
+  }
+
+  // Nothing to lint
+  if (typeof commits === 'undefined') {
     return res.send('No commited files.'); // Initial test web hook
   }
 
