@@ -62,7 +62,7 @@ class UserRepos extends React.Component {
     repo.loading = false;
 
     if (errors) {
-      alert(`An error occurred trying to update ${repo.name}.`);
+      alert(`Error occurred trying to update ${repo.name}: ${errors[0].message}.`);
       repo.isActive = !repo.isActive;
     }
 

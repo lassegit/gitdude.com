@@ -14,16 +14,24 @@ const repoStatus = {
     isActive: { type: BoolType, },
   },
   async resolve({ request }, args) {
+
     if (request.isAuthenticated()) {
-      const webhookId = await updateWebhook(request.user.id, args.id, args.isActive);
+      const webHookRes = await updateWebhook(request.user.id, args.id, args.isActive);
+
+      if (webHookRes.errors) {
+        throw new Error(webHookRes.errors[0].message);
+      }
 
       const repo = await Repository.update({
         isActive: args.isActive,
-        webhookId: webhookId,
+        webhookId: webHookRes.id ? webHookRes.id : null,
       }, { where: { id: args.id } });
+
       return args;
     }
+
     return;
+
   },
 };
 
