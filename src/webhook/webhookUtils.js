@@ -31,8 +31,8 @@ const commentMarkdown = (lintedFiles, user, repo, commitId) => {
     const fileName = file.name;
 
     // Too big
-    if (file.snippetLength > 10000) {
-      markdown += `\n **${fileName}:** File too big (${file.snippetLength} characters, max 10K) \n`;
+    if (file.snippetLength > 15000) {
+      markdown += `\n **${fileName}:** File too big (${file.snippetLength} characters, max. 15K) \n`;
     }
     // No errors
     else if (file.lint.length === 0) {
@@ -44,17 +44,17 @@ const commentMarkdown = (lintedFiles, user, repo, commitId) => {
 
       for (var x = 0; x < file.lint.length; x++) {
         const item = file.lint[x];
-        let message = item.message.replace(/\n|\r/g, ''); // Some strings contain line breaks
+        const message = item.message.replace(/\n|\r/g, ''); // Some strings contain line breaks
 
         markdown += `<code>${message}</code>`;
 
-        markdown += `<code>[L${item.line}:${item.column}](${repoUrl}/blob/${commitId}/${fileName}#L${item.line} "Go to line ${item.line} and column ${item.column}")</code>`;
+        markdown += `<code>[L${item.line}:${item.column}](${repoUrl}/blob/${commitId}/${fileName}#L${item.line})</code>`;
 
         if (item.ruleId) {
           const ruleUrl = getRuleURI(item.ruleId);
 
           if (ruleUrl.found) {
-            markdown += `[…](${ruleUrl.url} "Show documentation for ${item.ruleId} rule")`;
+            markdown += `[…](${ruleUrl.url} "${item.ruleId}")`;
           }
         }
 
@@ -75,6 +75,12 @@ const commentMarkdown = (lintedFiles, user, repo, commitId) => {
 
 // Post comment to commit
 const postComment = async (user, repo, commitId, comment) => {
+
+  if (comment.length > 65536) {
+    comment = '**The comment is being cut because it surpasses Github\'s maximum comment length of 65,536 characters.** \n' + comment;
+    comment = comment.substring(0, 65150);
+  }
+
   // https://developer.github.com/v3/repos/comments/#create-a-commit-comment
   const resp = await fetch(`https://api.github.com/repos/${user.userName}/${repo.name}/commits/${commitId}/comments`, {
     method: 'post',
@@ -88,17 +94,20 @@ const postComment = async (user, repo, commitId, comment) => {
       'body': comment,
     })
   });
+  const { id, errors } = await resp.json();
 
-  const data = await resp.json();
+  if (errors) {
+    return { error: true, message: errors[0].message, commit_id: commitId, id: null };
+  }
 
-  return resp.ok ? data : { error: true, message: data.message, commit_id: commitId, id: null };
+  return { commentId: id };
 };
 
 // Save the commit in database
 // TODO: count errors and files for statistics
 const saveCommit = async (commitData, user, repo, commentData, reqBody, lintedFiles) => {
   const branch = reqBody.ref.split('/')[2] || null;
-  const commentId = commentData.id || null;
+  const commentId = commentData.commentId || null;
 
   let commit = await Commit.create({
     name: commitData.message,

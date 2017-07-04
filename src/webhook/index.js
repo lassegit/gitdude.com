@@ -32,7 +32,7 @@ const webhook = (app) => {
       });
       esLintConfig = cli.getConfigForFile(configFile);
     } catch (e) {
-      return res.status(500).send(e);
+      return res.status(500).send(e.stack);
     }
 
     // Iterate over the commits
@@ -54,10 +54,10 @@ const webhook = (app) => {
         try {
           const snippet = await exec(`git -C ${repoPath} show ${commitId}:${files[x]}`);
           const snippetLength = snippet.length;
-          let lint = null;
+          let lint = {};
 
-          // Only lint files below 10.000 characters
-          if (snippetLength < 10000) {
+          // Only lint files below 15.000 characters
+          if (snippetLength < 15000) {
             lint = linter.verify(snippet, esLintConfig);
           }
 
