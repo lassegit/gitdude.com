@@ -30,10 +30,16 @@ const commentMarkdown = (lintedFiles, user, repo, commitId) => {
     const file = lintedFiles[i];
     const fileName = file.name;
 
-    if (file.lint.length === 0) {
-      markdown += `\n **${fileName}: :heavy_check_mark:** \n`; // No errors
-    } else {
-
+    // Too big
+    if (file.snippetLength > 10000) {
+      markdown += `\n **${fileName}:** File too big (${file.snippetLength} characters, max 10K) \n`;
+    }
+    // No errors
+    else if (file.lint.length === 0) {
+      markdown += `\n **${fileName}: :heavy_check_mark:** \n`;
+    }
+    // Errors
+    else {
       markdown += `\n **${fileName}** (${file.lint.length}) \n`;
 
       for (var x = 0; x < file.lint.length; x++) {
@@ -53,7 +59,7 @@ const commentMarkdown = (lintedFiles, user, repo, commitId) => {
         }
 
         if (item.fatal) {
-          markdown += ` :heavy_multiplication_x: **fatal**`;
+          markdown += ` :heavy_multiplication_x:`;
         }
 
         markdown += `\n`;

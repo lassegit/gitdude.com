@@ -53,9 +53,15 @@ const webhook = (app) => {
       for (var x = 0; x < files.length; x++) {
         try {
           const snippet = await exec(`git -C ${repoPath} show ${commitId}:${files[x]}`);
-          const lint = linter.verify(snippet, esLintConfig);
+          const snippetLength = snippet.length;
+          let lint = null;
 
-          lintedFiles.push({ name: files[x], lint: lint });
+          // Only lint files below 10.000 characters
+          if (snippetLength < 10000) {
+            lint = linter.verify(snippet, esLintConfig);
+          }
+
+          lintedFiles.push({ name: files[x], lint: lint, snippetLength: snippetLength });
         } catch (e) {
           lintedFiles.push({ name: files[x], lint: `File not found in commit: ${commitId}` });
         }
