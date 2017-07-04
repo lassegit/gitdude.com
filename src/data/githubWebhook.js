@@ -33,7 +33,7 @@ const githubWebhook = async (userId, repoId) => {
   }
 
   // Remove webhook
-  const resp = await fetch(`https://api.github.com/repos/${user.userName}/${repo.name}/hooks/${repo.webhookId}`, {
+  await fetch(`https://api.github.com/repos/${user.userName}/${repo.name}/hooks/${repo.webhookId}`, {
     method: 'delete',
     headers: {
       Accept: 'application/json',
