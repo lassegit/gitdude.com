@@ -67,8 +67,11 @@ const webhook = (app) => {
         }
       }
 
+      // Comment markdown
       const comment = commentMarkdown(lintedFiles, req.user, req.repo, commitId);
+      // Post to Github
       const postData = await postComment(req.user, req.repo, commitId, comment);
+      // Save to database
       await saveCommit(commits[i], req.user, req.repo, postData, req.body, lintedFiles);
 
       // Add info to res
