@@ -96,7 +96,7 @@ class UserRepoAdd extends React.Component {
     const { user } = this.context;
 
     return (
-      <div className={s.root}>
+      <div>
         <form onSubmit={this.onSubmit.bind(this)}>
           <span>{user.userName}</span>
           <span>/</span>
