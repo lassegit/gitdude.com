@@ -46,11 +46,11 @@ To be done.
 
 ## Precautions
 
-- If you call (e.g. extends or plugins) a non-installed package the linting will fail
+- If you call (e.g. extends or plugins) a non-installed package the linting will fail. You can always check the error message under your repository's setting page => webhook.
 
-
-Web site: [Gitdude.com](https://gitdude.com).
-
+- Questions, suggestions, tips, critique and commits welcome.
 
 ---
 Build using the [React Starter Kit](https://github.com/kriasoft/react-starter-kit).
+
+Web site: [Gitdude.com](https://gitdude.com).
