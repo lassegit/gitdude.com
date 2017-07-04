@@ -97,17 +97,17 @@ class UserRepos extends React.Component {
             </tr>
           </thead>
             {repos.map((repo, i) => {
-              let statusText = repo.isActive ? <span className={s.active}><b />Active</span> : <span className={s.disabled}><b />Disabled</span>;
-              if (!repo.hasConfig) {
-                statusText = <span className={s.missing}><b />Missing config file</span>;
+              let configBtn = repo.hasConfig ? 'Edit config' : 'Add config';
+              if (activeId === repo.id) {
+                configBtn = 'Close config';
               }
 
               return (
                 <tbody key={i}>
                   <tr>
                     <td>{repo.name}</td>
-                    <td>{statusText}</td>
-                    <td><button type="button" onClick={() => this.onConfig(repo)}>{ activeId === repo.id ? 'Close config' : 'Edit config' }</button></td>
+                    <td>{repo.isActive ? <span className={s.active}><b />Active</span> : <span className={s.disabled}><b />Disabled</span>}</td>
+                    <td><button type="button" onClick={() => this.onConfig(repo)}>{ configBtn }</button></td>
                     <td>{repo.language ? repo.language : '-'}</td>
                     <td><a href={`https://github.com/${user.userName}/${repo.name}`} target="_blank">Github</a></td>
                     <td><TimeAgo title={repo.createdAt} datetime={repo.createdAt} /></td>
