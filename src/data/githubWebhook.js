@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 import config from '../config';
 import { Repository, User } from './models';
 
-export async function updateWebhook(userId, repoId, isActive) {
+const githubWebhook = async (userId, repoId) => {
   const user = await User.findById(userId);
   const repo = await Repository.findById(repoId);
 
@@ -12,29 +12,28 @@ export async function updateWebhook(userId, repoId, isActive) {
     const resp = await fetch(`https://api.github.com/repos/${user.userName}/${repo.name}/hooks`, {
       method: 'post',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
         'User-Agent': 'GitDude',
-        'Authorization': (user && user.accessToken) ? `Bearer ${user.accessToken}` : 'No accessToken',
+        Authorization: (user && user.accessToken) ? `Bearer ${user.accessToken}` : 'No accessToken',
       },
       body: JSON.stringify({
-        'name': 'web',
-        'events': ['push'],
-        'active': true,
-        'config': {
-          'url': config.api.webHookUrl,
-          'content_type': 'json',
-          'secret': config.auth.github.webhookSecret,
-        }
-      })
+        name: 'web',
+        events: ['push'],
+        active: true,
+        config: {
+          url: config.api.webHookUrl,
+          content_type: 'json',
+          secret: config.auth.github.webhookSecret,
+        },
+      }),
     });
 
     const data = await resp.json();
 
     return data;
 
-  }
-  else {
+  } else {
 
     // Remove webhook
     const resp = await fetch(`https://api.github.com/repos/${user.userName}/${repo.name}/hooks/${repo.webhookId}`, {
@@ -51,3 +50,5 @@ export async function updateWebhook(userId, repoId, isActive) {
 
   }
 };
+
+export default githubWebhook;

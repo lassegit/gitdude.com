@@ -5,7 +5,7 @@ import {
 } from 'graphql';
 import RepositoryType from '../types/RepositoryType';
 import { Repository, User } from '../models';
-import { updateWebhook } from '../webhook.js';
+import githubWebhook from '../githubWebhook';
 
 const repoStatus = {
   type: RepositoryType,
@@ -16,7 +16,7 @@ const repoStatus = {
   async resolve({ request }, args) {
 
     if (request.isAuthenticated()) {
-      const webHookRes = await updateWebhook(request.user.id, args.id, args.isActive);
+      const webHookRes = await githubWebhook(request.user.id, args.id);
 
       if (webHookRes.errors) {
         throw new Error(webHookRes.errors[0].message);
