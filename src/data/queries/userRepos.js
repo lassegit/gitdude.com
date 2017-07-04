@@ -8,15 +8,20 @@ import { Repository } from '../models';
 const userRepos = {
   type: new GraphQLList(RepositoryType),
   async resolve({ request }) {
+
     if (request.isAuthenticated()) {
-      let repos = await Repository.findAll({
+
+      const repos = await Repository.findAll({
         where: { userId: request.user.id },
-        limit: 100,
+        limit: 150,
         order: 'createdAt DESC',
       });
+
       return repos;
     }
+
     return;
+
   },
 };
 
