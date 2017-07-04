@@ -57,7 +57,7 @@ const webhook = (app) => {
 
           lintedFiles.push({ name: files[x], lint: lint });
         } catch (e) {
-          lintedFiles.push({ name: files[x], lint: `File not found in ${commitId}` });
+          lintedFiles.push({ name: files[x], lint: `File not found in commit: ${commitId}` });
         }
       }
 
@@ -74,7 +74,10 @@ const webhook = (app) => {
       }
     }
 
-    if (webhookResErr) return res.status(500).json(webhookRes);
+
+    if (webhookResErr) {
+      return res.status(500).json(webhookRes);
+    }
 
     return res.json(webhookRes);
   });

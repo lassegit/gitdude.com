@@ -21,6 +21,6 @@ const gitAuth = async (req, res, next) => {
   req.repo = await Repository.find({ where: { name: req.body.repository.name, userId: req.user.id } });
 
   return next();
-}
+};
 
 export default gitAuth;

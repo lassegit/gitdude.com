@@ -25,6 +25,6 @@ const gitFiles = (req, res, next) => {
   }
 
   return next();
-}
+};
 
 export default gitFiles;
