@@ -33,22 +33,21 @@ const githubWebhook = async (userId, repoId) => {
 
     return data;
 
-  } else {
-
-    // Remove webhook
-    const resp = await fetch(`https://api.github.com/repos/${user.userName}/${repo.name}/hooks/${repo.webhookId}`, {
-      method: 'delete',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'User-Agent': 'GitDude',
-        'Authorization': (user && user.accessToken) ? `Bearer ${user.accessToken}` : 'No accessToken',
-      },
-    });
-
-    return {};
-
   }
+
+  // Remove webhook
+  const resp = await fetch(`https://api.github.com/repos/${user.userName}/${repo.name}/hooks/${repo.webhookId}`, {
+    method: 'delete',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'User-Agent': 'GitDude',
+      'Authorization': (user && user.accessToken) ? `Bearer ${user.accessToken}` : 'No accessToken',
+    },
+  });
+
+  return {};
+
 };
 
 export default githubWebhook;

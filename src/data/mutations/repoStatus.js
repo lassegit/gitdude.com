@@ -4,7 +4,7 @@ import {
   GraphQLNonNull as NonNull,
 } from 'graphql';
 import RepositoryType from '../types/RepositoryType';
-import { Repository, User } from '../models';
+import { Repository } from '../models';
 import githubWebhook from '../githubWebhook';
 
 const repoStatus = {
