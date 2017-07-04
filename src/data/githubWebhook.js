@@ -6,9 +6,8 @@ const githubWebhook = async (userId, repoId) => {
   const user = await User.findById(userId);
   const repo = await Repository.findById(repoId);
 
+  // Add webhook
   if (!repo.isActive) {
-
-    // Add webhook
     const resp = await fetch(`https://api.github.com/repos/${user.userName}/${repo.name}/hooks`, {
       method: 'post',
       headers: {
@@ -30,24 +29,21 @@ const githubWebhook = async (userId, repoId) => {
     });
 
     const data = await resp.json();
-
     return data;
-
   }
 
   // Remove webhook
   const resp = await fetch(`https://api.github.com/repos/${user.userName}/${repo.name}/hooks/${repo.webhookId}`, {
     method: 'delete',
     headers: {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
       'User-Agent': 'GitDude',
-      'Authorization': (user && user.accessToken) ? `Bearer ${user.accessToken}` : 'No accessToken',
+      Authorization: (user && user.accessToken) ? `Bearer ${user.accessToken}` : 'No accessToken',
     },
   });
 
   return {};
-
 };
 
 export default githubWebhook;
