@@ -13,8 +13,6 @@ class Contact extends React.Component {
       <div className={s.root}>
         <div className={s.container}>
           <h1>{this.props.title}</h1>
-          <p>You can contact me through <a href="https://github.com/lassegit/gitdude.com">Github</a> where you likewise have the opportunity to view the source code running this site.</p>
-          <p>You are also welcome to open an issue.</p>
         </div>
       </div>
     );
