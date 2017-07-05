@@ -17,6 +17,7 @@ class Profile extends React.Component {
       <div className={s.root}>
         <div className={s.container}>
           <h1>{this.props.title}</h1>
+          <hr />
           <p><label>Id:</label> {user.id}</p>
           <p><label>User name:</label> {user.userName}</p>
           <p><label>Github profile:</label> <a href={`https://github.com/${user.userName}`}>link</a></p>

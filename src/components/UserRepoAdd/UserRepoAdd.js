@@ -22,8 +22,8 @@ class UserRepoAdd extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    let repositoryName = this.refs.repositoryname.value;
-    let { repos } = this.props;
+    const repositoryName = this.refs.repositoryname.value;
+    const { repos } = this.props;
 
     // Check every is in order before continuing
     if (!repositoryName) {
@@ -43,7 +43,8 @@ class UserRepoAdd extends React.Component {
   }
 
   async githubInfo(name) {
-    let userName = this.context.user.userName;
+    const userName = this.context.user.userName;
+
     const resp = await this.context.fetch('https://api.github.com/graphql', {
       body: JSON.stringify({
         query: `query { repository(owner:"${userName}", name:"${name}") {
@@ -51,7 +52,7 @@ class UserRepoAdd extends React.Component {
         }}`
       })
     });
-    let { data } = await resp.json();
+    const { data } = await resp.json();
 
     if (data && data.repository) {
       this.saveRepo(data.repository);
@@ -63,7 +64,8 @@ class UserRepoAdd extends React.Component {
   }
 
   async saveRepo(repo) {
-    let language = repo.primaryLanguage ? repo.primaryLanguage.name : '';
+    const language = repo.primaryLanguage ? repo.primaryLanguage.name : '';
+
     const resp = await this.context.fetch('/graphql', {
       body: JSON.stringify({
         query: `mutation { repoAdd(
@@ -79,7 +81,7 @@ class UserRepoAdd extends React.Component {
         }}`
       })
     });
-    let { data } = await resp.json();
+    const { data } = await resp.json();
 
     this.setState({ loading: false });
 
@@ -99,13 +101,14 @@ class UserRepoAdd extends React.Component {
       <div>
         <form onSubmit={this.onSubmit.bind(this)}>
           <span>{user.userName}</span>
-          <span>/</span>
+          {' '}<span>/</span>{' '}
           <input
             type="text"
             name="repositoryname"
             ref="repositoryname"
-            placeholder="Name of github repository…" />
-          <button type="submit" disabled={this.state.loading}>Add repository</button>
+            placeholder="Name of github repository…"
+            className={s.input}/>{' '}
+          <button className={s.button} type="submit" disabled={this.state.loading}>Add repository</button>
 
           <Loading visible={this.state.loading} size={20} />
         </form>

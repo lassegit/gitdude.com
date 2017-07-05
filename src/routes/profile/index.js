@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 
-const title = 'Profile page';
+const title = 'User profile';
 
 export default {
 

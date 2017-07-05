@@ -1,1 +1,5 @@
 @import '../variables.css';
+
+.input {
+  min-width: 250px;
+}
