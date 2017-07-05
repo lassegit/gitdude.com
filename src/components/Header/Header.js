@@ -55,7 +55,7 @@ class Header extends React.Component {
           <div className={s.navigation} role="navigation"> <ButtonAuth /> </div>
           <div className={s.banner}>
             <h1 className={s.bannerTitle}>Gitdude.com</h1>
-            <p className={s.bannerDesc}>The code intel you want and where you want!</p>
+            <h2 className={s.bannerDesc}>Simple and accessible code improvement tips posted as a comment on your Github commits.</h2>
           </div>
         </div>
       </div>

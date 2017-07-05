@@ -29,3 +29,9 @@
     float:left;
   }
 }
+
+.afterText {
+  @media screen and (width > 768px) {
+    padding:10px;
+  }
+}
