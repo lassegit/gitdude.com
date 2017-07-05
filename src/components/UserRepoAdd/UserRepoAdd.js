@@ -27,11 +27,24 @@ class UserRepoAdd extends React.Component {
   }
 
   componentWillMount() {
+    this.setState({ repoOwner: this.context.user.userName, repoOwnerOptions: [this.context.user.userName] });
+  }
+
+  componentDidMount() {
     const { userName } = this.context.user;
+    let repoOwnerFetch = false;
+    let repoOwnerOptions = [];
+
+    if( typeof(Storage) !== 'undefined' && localStorage.getItem('repoOwnerOptions') ) {
+      repoOwnerOptions = JSON.parse(localStorage.getItem('repoOwnerOptions'));
+      repoOwnerOptions = JSON.parse(repoOwnerOptions.value);
+      repoOwnerFetch = true;
+    }
 
     this.setState({
       repoOwner: userName,
-      repoOwnerOptions: [userName],
+      repoOwnerOptions: repoOwnerOptions,
+      repoOwnerFetch: repoOwnerFetch,
     });
   }
 
@@ -122,6 +135,7 @@ class UserRepoAdd extends React.Component {
       repoOwnerFetch: true,
     });
 
+    // https://developer.github.com/v3/repos/#list-user-repositories
     const resp = await this.context.fetch(`https://api.github.com/users/${userName}/orgs`, {
       method: 'get'
     });
@@ -132,6 +146,13 @@ class UserRepoAdd extends React.Component {
         repoOwnerOptions.push(data[i].login);
       }
     }
+
+    // Store locally
+    const object = {
+      value: JSON.stringify(repoOwnerOptions),
+      createdAt: new Date().getTime(),
+    };
+    localStorage.setItem('repoOwnerOptions', JSON.stringify(object));
 
     this.setState({
       repoOwnerOptions: repoOwnerOptions,
@@ -146,11 +167,10 @@ class UserRepoAdd extends React.Component {
   render() {
     const { user } = this.context;
     const { repoOwner, repoOwnerOptions } = this.state;
-    console.log(this.state)
+
     return (
       <div>
         <form onSubmit={this.onSubmit.bind(this)}>
-
           <select
             value={repoOwner}
             onChange={this.onSelect.bind(this)}
