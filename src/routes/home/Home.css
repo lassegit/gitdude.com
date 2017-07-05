@@ -31,9 +31,7 @@
 }
 
 .authWrap {
-  @media screen and (width > 768px) {
-    max-width:500px;
-    margin:auto;
-    text-align:center;
-  }
+  text-align:center;
+  margin:auto;
+  max-width:350px;
 }

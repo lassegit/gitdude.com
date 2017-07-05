@@ -78,7 +78,7 @@ app.get('/auth/github/callback',
 
 app.get('/logout', (req, res) => {
   res.clearCookie('id_token');
-  res.redirect('/login');
+  res.redirect('/');
 });
 
 // Webhook request

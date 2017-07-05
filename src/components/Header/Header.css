@@ -42,6 +42,11 @@
   }
 }
 
+.loginButton {
+  max-width:350px;
+  margin:1.5em auto 0 auto;
+}
+
 .brandTxt {
   color: color(var(--brand-color) lightness(+10%));
   font-family: monospace;
@@ -81,6 +86,13 @@
   line-height:40px;
 }
 
+.navigationAnon {
+  display:none;
+  @media screen and (width > 768px) {
+    display:block;
+  }
+}
+
 .banner {
   text-align: center;
   padding:20px 0;
@@ -95,13 +107,14 @@
 
   @media screen and (width > 768px) {
     font-size: 4em;
+    margin: 20px 0 10px 0;
   }
 }
 
 .bannerDesc {
   padding: 0;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 1.25em;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.35em;
   margin: 0 auto;
   max-width:600px;
 }
