@@ -1,10 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import ButtonAuth from '../../components/ButtonAuth';
 import s from './Home.css';
 
 class Home extends React.Component {
+  static contextTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+  };
+
   render() {
+    const { isAuthenticated } = this.context;
+
     return (
       <div className={s.root}>
         <div className={s.container}>
@@ -34,8 +41,13 @@ class Home extends React.Component {
             </div>
           </div>
 
-          <p className={s.afterText}><small>*So far <a href="https://github.com/lassegit/gitdude.com">various Javascript configurations</a> are support.</small></p>
-
+          { !isAuthenticated ?
+            <div className={s.authWrap}>
+              <p>Get started:</p>
+              <ButtonAuth />
+            </div>
+            : null
+          }
         </div>
       </div>
     );

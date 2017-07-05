@@ -30,8 +30,10 @@
   }
 }
 
-.afterText {
+.authWrap {
   @media screen and (width > 768px) {
-    padding:10px;
+    max-width:500px;
+    margin:auto;
+    text-align:center;
   }
 }
