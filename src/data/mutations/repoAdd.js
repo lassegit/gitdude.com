@@ -21,7 +21,19 @@ const repoAdd = {
   async resolve({ request }, args) {
     if (request.isAuthenticated()) {
       args.userId = request.user.id;
-      let repo = await Repository.create(args);
+
+      const existingRepo = await Repository.find({
+        where: {
+          name: args.name,
+          owner: args.owner,
+        },
+      });
+
+      if (existingRepo) {
+        throw new Error('Repository is have already been added by another member of the organisation.');
+      }
+
+      const repo = await Repository.create(args);
       return repo;
     }
     return;

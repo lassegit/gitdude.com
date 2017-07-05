@@ -10,7 +10,7 @@ export default {
     if (isAuthenticated && path !== '/frontpage') {
       const resp = await fetch('/graphql', {
         body: JSON.stringify({
-          query: 'query { userRepos{ id, repositoryId, name, isActive, language, hasConfig, createdAt }}',
+          query: 'query { userRepos{ id, repositoryId, name, owner, isActive, language, hasConfig, createdAt }}',
         }),
       });
       const { data } = await resp.json();

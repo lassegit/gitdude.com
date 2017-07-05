@@ -87,8 +87,7 @@ class UserRepoAdd extends React.Component {
       this.saveRepo(data.repository);
     } else {
       this.setState({ loading: false });
-      alert('An error occured while trying to get repository information from the Github API.');
-      return;
+      alert('No repository found.');
     }
   }
 
@@ -107,11 +106,11 @@ class UserRepoAdd extends React.Component {
           homepageUrl: "${repo.homepageUrl}",
           repositoryCreatedAt: "${repo.createdAt}",
         ) {
-          id, repositoryId, name, description, isPrivate, isActive, homepageUrl, createdAt, language, hasConfig
+          id, repositoryId, name, owner, description, isPrivate, isActive, homepageUrl, createdAt, language, hasConfig
         }}`
       })
     });
-    const { data } = await resp.json();
+    const { data, errors } = await resp.json();
 
     this.setState({ loading: false });
 
@@ -119,8 +118,7 @@ class UserRepoAdd extends React.Component {
       this.props.addRepo(data.repoAdd);
       this.refs.repositoryname.value = '';
     } else {
-      alert('An error occured while trying to get save the repository to the database.');
-      return;
+      alert(errors[0].message);
     }
   }
 

@@ -105,7 +105,7 @@ class UserRepos extends React.Component {
               return (
                 <tbody key={i}>
                   <tr>
-                    <td>{repo.name}</td>
+                    <td>{repo.name} { user.userName !== repo.owner ? <small title="Repository owner">{repo.owner}</small> : null} </td>
                     <td>{repo.isActive ? <span className={s.active}><b />Active</span> : <span className={s.disabled}><b />Disabled</span>}</td>
                     <td><button type="button" onClick={() => this.onConfig(repo)}>{ configBtn }</button></td>
                     <td>{repo.language ? repo.language : '-'}</td>
