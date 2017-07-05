@@ -1,4 +1,4 @@
-## Various configuration examples
+## ESLint Configuration examples
 
 All configurations have to be JSON formatted. If you need a module that isn't currently available you are welcome to open an issue. Likewise if you have a configuration you want to share.
 
