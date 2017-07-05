@@ -48,6 +48,8 @@ To be done.
 
 - If you call (e.g. extends or plugins) a non-installed package the linting will fail. You can always check the error message under your repository's setting page => webhook.
 
+- Currently ['.js', '.jsx', '.es6', '.es5', '.es'] files are linted. If you have a special file extension that you use, you are welcome to open an issue.
+
 - Questions, suggestions, tips, critique and commits welcome.
 
 ---
