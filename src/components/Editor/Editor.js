@@ -22,12 +22,12 @@ class Editor extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = { repo: props.repo };
   }
 
   componentDidMount() {
     const { config, hasConfig } = this.state.repo;
+
     if (!config && hasConfig) {
       this.fetchConfig();
     }
@@ -36,7 +36,7 @@ class Editor extends React.Component {
   async fetchConfig() {
     let { repo } = this.state;
     const resp = await this.context.fetch(`/api/configs/eslintrc/${repo.id}/get`, { method: 'post' });
-    let config = await resp.json();
+    const config = await resp.json();
 
     if (resp.status === 200) {
       repo.config = JSON.stringify(config, null, 4);
@@ -92,15 +92,16 @@ class Editor extends React.Component {
               tabSize: 4,
             }}
           />
-          <button onClick={this.onSave.bind(this)} disabled={repo.loadingConfig}>Save config</button>
 
+          <button onClick={this.onSave.bind(this)} disabled={repo.loadingConfig}>Save config</button>
+          {' '}
           <select disabled>
             <option>Load config</option>
           </select>
 
           <Loading size={20} visible={repo.loadingConfig} />
 
-          <p>A configuation file is JSON formatted file that is parsed to ESlint and excuted on your commited code. You can load example configuation files using the select box above. <Link to="/howto">Show syntax and included ES plugin documentation.</Link></p>
+          <p>The configuation file is JSON formatted file and is parsed to ESLint and excuted on your commited code. Please make sure it is valid JSON.</p>
         </div>
       );
   }
