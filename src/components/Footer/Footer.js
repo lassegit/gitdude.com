@@ -15,7 +15,9 @@ class Footer extends React.Component {
         <div className={s.container}>
           <span className={s.text}>Gitdude.com, {new Date().getFullYear()}</span>
           <span className={s.spacer}>·</span>
-          <Link className={s.link} to={this.context.isAuthenticated ? '/frontpage' : '/'}>Front page</Link>
+          <Link className={s.link} to={this.context.isAuthenticated ? '/frontpage' : '/'}>Home</Link>
+          <span className={s.spacer}>·</span>
+          <Link className={s.link} to="/login">Login</Link>
         </div>
       </div>
     );

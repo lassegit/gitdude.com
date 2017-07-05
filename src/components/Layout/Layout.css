@@ -30,6 +30,18 @@ a {
   box-sizing:border-box;
 }
 
+h1,
+h2 {
+  font-weight:normal;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-weight:bold;
+}
+
 /*
  * Remove text-shadow in selection highlight:
  * https://twitter.com/miketaylr/status/12228805301
