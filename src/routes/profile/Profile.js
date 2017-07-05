@@ -20,7 +20,7 @@ class Profile extends React.Component {
           <p><label>Id:</label> {user.id}</p>
           <p><label>User name:</label> {user.userName}</p>
           <p><label>Github profile:</label> <a href={`https://github.com/${user.userName}`}>link</a></p>
-          <p><label>Created at:</label> <TimeAgo title={user.createdAt} datetime={user.createdAt} /></p>
+          <p><label>Created:</label> <TimeAgo title={user.createdAt} datetime={user.createdAt} /></p>
         </div>
       </div>
     );

@@ -4,7 +4,7 @@ import { Commit } from '../data/models';
 
 // Remove unallowed file extentions
 const allowedFiles = (commit) => {
-  const allowedExtensions = ['.js', '.jsx', '.es6', '.es5'].join(' ');
+  const allowedExtensions = ['.js', '.jsx', '.es6', '.es5', '.es'].join(' ');
   const commitFiles = [...commit.added, ...commit.modified];
   let allowedFiles = [];
 
