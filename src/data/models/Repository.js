@@ -16,6 +16,10 @@ const Repository = Model.define('Repository', {
     type: DataType.STRING(255),
   },
 
+  owner: {
+    type: DataType.STRING(255),
+  },
+
   description: {
     type: DataType.TEXT(),
   },

@@ -11,6 +11,7 @@ const repoAdd = {
   args: {
     repositoryId: { type: new NonNull(StringType) },
     name: { type: StringType },
+    owner: { type: StringType },
     description: { type: StringType },
     language: { type: StringType },
     isPrivate: { type: BoolType },

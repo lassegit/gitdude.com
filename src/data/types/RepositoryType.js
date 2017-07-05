@@ -13,6 +13,7 @@ const RepositoryType = new ObjectType({
     id: { type: new NonNull(ID) },
     repositoryId: { type: StringType },
     name: { type: StringType },
+    owner: { type: StringType },
     description: { type: StringType },
     webhookId: { type: StringType },
     hasConfig: { type: BoolType },

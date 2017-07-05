@@ -17,7 +17,22 @@ class UserRepoAdd extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { loading: false };
+
+    this.state = {
+      loading: false,
+      repoOwner: '',
+      repoOwnerOptions: [],
+      repoOwnerFetch: false,
+    };
+  }
+
+  componentWillMount() {
+    const { userName } = this.context.user;
+
+    this.setState({
+      repoOwner: userName,
+      repoOwnerOptions: [userName],
+    });
   }
 
   onSubmit(e) {
@@ -43,11 +58,11 @@ class UserRepoAdd extends React.Component {
   }
 
   async githubInfo(name) {
-    const userName = this.context.user.userName;
+    const { repoOwner } = this.state;
 
     const resp = await this.context.fetch('https://api.github.com/graphql', {
       body: JSON.stringify({
-        query: `query { repository(owner:"${userName}", name:"${name}") {
+        query: `query { repository(owner:"${repoOwner}", name:"${name}") {
           id, name, description, isPrivate, homepageUrl, createdAt, primaryLanguage { name }
         }}`
       })
@@ -55,6 +70,7 @@ class UserRepoAdd extends React.Component {
     const { data } = await resp.json();
 
     if (data && data.repository) {
+      data.repository.owner = repoOwner;
       this.saveRepo(data.repository);
     } else {
       this.setState({ loading: false });
@@ -71,6 +87,7 @@ class UserRepoAdd extends React.Component {
         query: `mutation { repoAdd(
           repositoryId: "${repo.id}",
           name: "${repo.name}",
+          owner: "${repo.owner}",
           description: "${repo.description}",
           language: "${language}",
           isPrivate: ${repo.isPrivate},
@@ -94,20 +111,65 @@ class UserRepoAdd extends React.Component {
     }
   }
 
+  async onClickSelect(e) {
+    const { repoOwnerFetch, repoOwnerOptions } = this.state;
+    const { userName } = this.context.user;
+
+    if (repoOwnerFetch) { return; }
+
+    this.setState({
+      loading: true,
+      repoOwnerFetch: true,
+    });
+
+    const resp = await this.context.fetch(`https://api.github.com/users/${userName}/orgs`, {
+      method: 'get'
+    });
+    const data = await resp.json();
+
+    if (data.length > 0) {
+      for (var i = 0; i < data.length; i++) {
+        repoOwnerOptions.push(data[i].login);
+      }
+    }
+
+    this.setState({
+      repoOwnerOptions: repoOwnerOptions,
+      loading: false,
+    });
+  }
+
+  async onSelect(e) {
+    this.setState({ repoOwner: e.target.value });
+  }
+
   render() {
     const { user } = this.context;
-
+    const { repoOwner, repoOwnerOptions } = this.state;
+    console.log(this.state)
     return (
       <div>
         <form onSubmit={this.onSubmit.bind(this)}>
-          <span>{user.userName}</span>
+
+          <select
+            value={repoOwner}
+            onChange={this.onSelect.bind(this)}
+            onClick={this.onClickSelect.bind(this)}
+            title="Search for repositories owned by an Github organisation that you are a member of">
+            {repoOwnerOptions.map(item => {
+              return (<option key={item} value={item}>{item}</option>)
+            })}
+          </select>
+
           {' '}<span>/</span>{' '}
+
           <input
             type="text"
             name="repositoryname"
             ref="repositoryname"
             placeholder="Name of github repository…"
             className={s.input}/>{' '}
+
           <button className={s.button} type="submit" disabled={this.state.loading}>Add repository</button>
 
           <Loading visible={this.state.loading} size={20} />
