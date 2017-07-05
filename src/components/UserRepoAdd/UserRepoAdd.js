@@ -27,7 +27,8 @@ class UserRepoAdd extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({ repoOwner: this.context.user.userName, repoOwnerOptions: [this.context.user.userName] });
+    const { userName } = this.context.user;
+    this.setState({ repoOwner: userName, repoOwnerOptions: [userName] });
   }
 
   componentDidMount() {
@@ -39,13 +40,12 @@ class UserRepoAdd extends React.Component {
       repoOwnerOptions = JSON.parse(localStorage.getItem('repoOwnerOptions'));
       repoOwnerOptions = JSON.parse(repoOwnerOptions.value);
       repoOwnerFetch = true;
-    }
 
-    this.setState({
-      repoOwner: userName,
-      repoOwnerOptions: repoOwnerOptions,
-      repoOwnerFetch: repoOwnerFetch,
-    });
+      this.setState({
+        repoOwnerOptions: repoOwnerOptions,
+        repoOwnerFetch: repoOwnerFetch,
+      });
+    }
   }
 
   onSubmit(e) {

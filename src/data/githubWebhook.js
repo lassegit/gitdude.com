@@ -8,7 +8,7 @@ const githubWebhook = async (userId, repoId) => {
 
   // Add webhook
   if (!repo.isActive) {
-    const resp = await fetch(`https://api.github.com/repos/${user.userName}/${repo.name}/hooks`, {
+    const resp = await fetch(`https://api.github.com/repos/${repo.owner}/${repo.name}/hooks`, {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -27,13 +27,13 @@ const githubWebhook = async (userId, repoId) => {
         },
       }),
     });
-
     const data = await resp.json();
+
     return data;
   }
 
   // Remove webhook
-  await fetch(`https://api.github.com/repos/${user.userName}/${repo.name}/hooks/${repo.webhookId}`, {
+  await fetch(`https://api.github.com/repos/${repo.owner}/${repo.name}/hooks/${repo.webhookId}`, {
     method: 'delete',
     headers: {
       Accept: 'application/json',

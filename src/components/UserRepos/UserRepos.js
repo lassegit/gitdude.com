@@ -109,7 +109,7 @@ class UserRepos extends React.Component {
                     <td>{repo.isActive ? <span className={s.active}><b />Active</span> : <span className={s.disabled}><b />Disabled</span>}</td>
                     <td><button type="button" onClick={() => this.onConfig(repo)}>{ configBtn }</button></td>
                     <td>{repo.language ? repo.language : '-'}</td>
-                    <td><a href={`https://github.com/${user.userName}/${repo.name}`} target="_blank">Github</a></td>
+                    <td><a href={`https://github.com/${repo.owner}/${repo.name}`} target="_blank">Github</a></td>
                     <td><TimeAgo title={repo.createdAt} datetime={repo.createdAt} /></td>
                     <td>
                       <button type="button" onClick={() => this.removeRepo(repo)} disabled={repo.loading ? true : false}>

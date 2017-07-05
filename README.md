@@ -52,6 +52,8 @@ To be done.
 
 - Questions, suggestions, tips, critique and commits welcome.
 
+- If webhook isn't being setup for your organisation owned repository then you need to grant it access under: https://github.com/organizations/YOUR_ORGANISATION_NAME/settings/oauth_application_policy
+
 ---
 Build using the [React Starter Kit](https://github.com/kriasoft/react-starter-kit).
 
