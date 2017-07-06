@@ -20,7 +20,7 @@ const webhook = (app) => {
     let cli;
     let esLintConfig;
 
-    // Use default config if non-exist
+    // Use default config if no config
     if (!fs.existsSync(configFile)) {
       configFile = path.resolve(__dirname, `../examples/default.json`);
     }
