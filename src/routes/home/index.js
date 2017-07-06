@@ -22,7 +22,7 @@ export default {
     };
 
     return {
-      title: 'React Starter Kit',
+      title: 'Code tips on Github commits. Engaging and simple.',
       component: <Layout><Home /></Layout>,
     };
   },
