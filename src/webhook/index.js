@@ -1,3 +1,4 @@
+import fs from 'fs';
 import path from 'path';
 import exec from 'async-exec';
 import gitAuth from './gitAuth';
@@ -12,12 +13,17 @@ const CLIEngine = require('eslint').CLIEngine;
 const webhook = (app) => {
   app.post('/webhook', gitAuth, gitFiles, gitRepo, gitSync, async (req, res, next) => {
     const repoPath = path.resolve(__dirname, `../repos/${req.repo.id}/`);
-    const configFile = path.resolve(__dirname, `../configs/eslintrc-${req.repo.id}.json`);
+    let configFile = path.resolve(__dirname, `../configs/eslintrc-${req.repo.id}.json`);
     const commits = req.body.commits;
     const webhookRes = [];
     let webhookResErr = false;
     let cli;
     let esLintConfig;
+
+    // Use default config if non-exist
+    if (!fs.existsSync(configFile)) {
+      configFile = path.resolve(__dirname, `../examples/default.json`);
+    }
 
     try {
       cli = new CLIEngine({
@@ -32,7 +38,7 @@ const webhook = (app) => {
       });
       esLintConfig = cli.getConfigForFile(configFile);
     } catch (e) {
-      return res.status(500).send(e.stack);
+      return res.status(500).json(e);
     }
 
     // Iterate over the commits
