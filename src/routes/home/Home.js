@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import ButtonAuth from '../../components/ButtonAuth';
 import s from './Home.css';
+import showcaseUrl from './showcase.jpg';
 
 class Home extends React.Component {
   static contextTypes = {
@@ -39,6 +40,11 @@ class Home extends React.Component {
                 <p>Users can configure their own code ESlinting preferences per repository. See for <a href="https://github.com/lassegit/gitdude.com">supported configurations</a>.</p>
               </div>
             </div>
+          </div>
+
+          <div className={s.showcase}>
+            <p>Example of a Github commit with code tips:</p>
+            <img className={s.showcaseImg} src={showcaseUrl} />
           </div>
 
           { !isAuthenticated ?

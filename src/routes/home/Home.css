@@ -35,3 +35,13 @@
   margin:auto;
   max-width:350px;
 }
+
+.showcase {
+  text-align:center;
+}
+
+.showcaseImg {
+  max-width:700px;
+  width:100%;
+  margin: auto;
+}
