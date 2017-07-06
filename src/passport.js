@@ -9,7 +9,7 @@ passport.use(new GitHubStrategy({
     callbackURL: config.auth.github.callbackURL,
     passReqToCallback: true,
     // https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/about-scopes-for-oauth-apps/
-    scope: ['user', 'user:email', 'repo', 'admin:org_hook'],
+    scope: ['user', 'user:email', 'repo'],
   }, async (req, accessToken, refreshToken, profile, done) => {
     try {
       let email = null;

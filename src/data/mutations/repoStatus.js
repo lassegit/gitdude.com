@@ -18,8 +18,8 @@ const repoStatus = {
     if (request.isAuthenticated()) {
       const webHookRes = await githubWebhook(request.user.id, args.id);
 
-      if (webHookRes.errors) {
-        throw new Error(webHookRes.errors[0].message);
+      if (webHookRes.error) {
+        throw new Error(webHookRes.error);
       }
 
       const repo = await Repository.update({

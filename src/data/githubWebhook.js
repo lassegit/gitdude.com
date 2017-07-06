@@ -5,6 +5,7 @@ import { Repository, User } from './models';
 const githubWebhook = async (userId, repoId) => {
   const user = await User.findById(userId);
   const repo = await Repository.findById(repoId);
+  let data = {};
 
   // Add webhook
   if (!repo.isActive) {
@@ -27,13 +28,22 @@ const githubWebhook = async (userId, repoId) => {
         },
       }),
     });
-    const data = await resp.json();
+    data = await resp.json();
+
+    if (user.userName !== repo.owner && resp.status === 404) {
+      data.error = `An error occurred trying to activate webhook on ${repo.name}. \nPlease make sure you have granted Gitdude access to ${repo.owner} under: \n${repo.owner} => Settings => Third-party access`;
+    } else if (resp.status === 422) {
+      data.error = `An error occurred trying to activate webhook on ${repo.name} because the repository already have a webhook.`;
+    }
+    else if (resp.status !== 201) {
+      data.error = `An error trying to activate webhook on ${repo.name}. \nPlease make sure Gitdude have been granted access to ${repo.name}`;
+    }
 
     return data;
   }
 
   // Remove webhook
-  await fetch(`https://api.github.com/repos/${repo.owner}/${repo.name}/hooks/${repo.webhookId}`, {
+  const resp = await fetch(`https://api.github.com/repos/${repo.owner}/${repo.name}/hooks/${repo.webhookId}`, {
     method: 'delete',
     headers: {
       Accept: 'application/json',
@@ -43,7 +53,11 @@ const githubWebhook = async (userId, repoId) => {
     },
   });
 
-  return {};
+  if (resp.status !== 204) {
+    data.error = `An error trying to activate webhook on ${repo.name}. \nPlease make sure Gitdude have been granted access to ${repo.name}`;
+  }
+
+  return data;
 };
 
 export default githubWebhook;
