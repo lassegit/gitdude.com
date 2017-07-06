@@ -90,7 +90,7 @@ class UserRepos extends React.Component {
               <th>Name</th>
               <th>Status</th>
               <th>Config</th>
-              <th>Main language</th>
+              <th>Language</th>
               <th>Url</th>
               <th>Created</th>
               <th>Action</th>
