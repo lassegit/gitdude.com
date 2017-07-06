@@ -18,10 +18,10 @@ const gitAuth = async (req, res, next) => {
 
   // Attach user and repo to request
   req.user = await User.find({
-    where: { gitId: req.body.sender.id }
+    where: { gitId: req.body.sender.id },
   });
   req.repo = await Repository.find({
-    where: { name: req.body.repository.name, userId: req.user.id }
+    where: { name: req.body.repository.name, userId: req.user.id },
   });
 
   return next();
