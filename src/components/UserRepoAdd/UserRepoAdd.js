@@ -185,7 +185,7 @@ class UserRepoAdd extends React.Component {
             type="text"
             name="repositoryname"
             ref="repositoryname"
-            placeholder="Name of github repository…"
+            placeholder={"Github repository owned by " + repoOwner}
             className={s.input}/>{' '}
 
           <button className={s.button} type="submit" disabled={this.state.loading}>Add repository</button>
