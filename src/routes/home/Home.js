@@ -15,7 +15,7 @@ class Home extends React.Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <h2 className={s.heading}>Code tips right on github commits. <br /> Engaging and simple.</h2>
+          <h2 className={s.heading}>Code tips right on Github commits. <br /> Engaging and simple.</h2>
 
           <div className={s.blockWrapper}>
             <div>
