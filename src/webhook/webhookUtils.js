@@ -23,7 +23,7 @@ const allowedFiles = (commit) => {
 // Generate markdown
 // Emoji: https://www.webpagefx.com/tools/emoji-cheat-sheet/
 const commentMarkdown = (lintedFiles, user, repo, commitId) => {
-  const repoUrl = `https://github.com/${user.userName}/${repo.name}`;
+  const repoUrl = `https://github.com/${repo.owner}/${repo.name}`;
   let markdown = '';
 
   for (var i = 0; i < lintedFiles.length; i++) {
@@ -82,7 +82,7 @@ const postComment = async (user, repo, commitId, comment) => {
   }
 
   // https://developer.github.com/v3/repos/comments/#create-a-commit-comment
-  const resp = await fetch(`https://api.github.com/repos/${user.userName}/${repo.name}/commits/${commitId}/comments`, {
+  const resp = await fetch(`https://api.github.com/repos/${repo.owner}/${repo.name}/commits/${commitId}/comments`, {
     method: 'post',
     headers: {
       'Accept': 'application/json',
