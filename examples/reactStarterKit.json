@@ -1,45 +1,43 @@
 {
-    "parser": "babel-eslint",
-    "parserOptions": {
-        "sourceType": "module",
-        "allowImportExportEverywhere": false,
-        "codeFrame": false
-    },
-    "extends": [
-        "airbnb",
-        "plugin:css-modules/recommended"
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "plugin:css-modules/recommended"
+  ],
+  "plugins": [
+    "css-modules"
+  ],
+  "globals": {
+    "__DEV__": true,
+    "contextTypes": true,
+    "defaultProps": true
+  },
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "import/extensions": [
+      "error",
+      "always",
+      {
+        "js": "never",
+        "jsx": "never",
+        "mjs": "never"
+      }
     ],
-    "plugins": [
-        "css-modules"
+    "import/no-extraneous-dependencies": "off",
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "warn",
+          "error",
+          "info"
+        ]
+      }
     ],
-    "globals": {
-        "__DEV__": true
-    },
-    "env": {
-        "browser": true
-    },
-    "rules": {
-        "import/extensions": [
-            "error",
-            "always",
-            {
-                "js": "never",
-                "jsx": "never",
-                "mjs": "never"
-            }
-        ],
-        "import/no-extraneous-dependencies": 0,
-        "no-console": [
-            "error",
-            {
-                "allow": [
-                    "warn",
-                    "error",
-                    "info"
-                ]
-            }
-        ],
-        "react/jsx-filename-extension": 0,
-        "react/prefer-stateless-function": 0
-    }
+    "import/no-unresolved": "off",
+    "react/jsx-filename-extension": "off",
+    "react/prefer-stateless-function": "off"
+  }
 }
