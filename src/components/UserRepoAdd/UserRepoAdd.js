@@ -173,7 +173,7 @@ class UserRepoAdd extends React.Component {
             value={repoOwner}
             onChange={this.onSelect.bind(this)}
             onClick={this.onClickSelect.bind(this)}
-            title="Search for repositories owned by an Github organisation that you are a member of">
+            title="Add repositories owned by your user or an organisation you are a member of...">
             {repoOwnerOptions.map(item => {
               return (<option key={item} value={item}>{item}</option>)
             })}
@@ -185,7 +185,7 @@ class UserRepoAdd extends React.Component {
             type="text"
             name="repositoryname"
             ref="repositoryname"
-            placeholder={"Add Github repository owned by " + repoOwner}
+            placeholder={"Github repository name owned by " + repoOwner + "..."}
             className={s.input}/>{' '}
 
           <button className={s.button} type="submit" disabled={this.state.loading}>Add repository</button>
