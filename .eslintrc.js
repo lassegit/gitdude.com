@@ -14,6 +14,7 @@ module.exports = {
 
     globals: {
       __DEV__: true,
+      contextTypes: true
     },
 
     env: {
