@@ -63,10 +63,10 @@ class Home extends React.Component {
           </div>
 
           { !isAuthenticated ?
-            <div className={s.authWrap}>
-              <p>Get started:</p>
-              <ButtonAuth />
-            </div>
+              <div className={s.authWrap}>
+                <p>Get started:</p>
+                <ButtonAuth />
+              </div>
             : null
           }
         </div>
