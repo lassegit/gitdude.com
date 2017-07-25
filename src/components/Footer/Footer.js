@@ -13,7 +13,7 @@ class Footer extends React.Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <span className={s.text}>Gitdude.com, {new Date().getFullYear()}</span>
+          <span className={s.text}>Gitdude.com (beta) {new Date().getFullYear()}</span>
           <span className={s.spacer}>·</span>
           <Link className={s.link} to={this.context.isAuthenticated ? '/frontpage' : '/'}>Home</Link>
         </div>
